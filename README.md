@@ -72,11 +72,11 @@ Close the connection. The optional callback will be called after the connection 
 
 The line protocol for simplecached is a simplified version of memcached's.
 
-### get <key>\r\n
+### get [key]\r\n
 
 Gets a key from the cache. The response can be either:
 
-    VALUE <value>\r\n
+    VALUE [value]\r\n
 
 when a value is found, or
 
@@ -84,7 +84,7 @@ when a value is found, or
 
 if the value was not found.
 
-### set <key> <value>\r\n
+### set [key] [value]\r\n
 
 Sets a value in the cache, always a string (without line feeds).
 The response can be either:
@@ -97,7 +97,7 @@ if the value was stored, or
 
 otherwise.
 
-### delete <key>\r\n
+### delete [key]\r\n
 
 Deletes a value from the cache.
 The response can be either:
