@@ -16,7 +16,7 @@
 		"optimist": "~0.6.0",
 		"log": "*"
 	},
-	"keywords" : ["simplecached", "didactic", "memcached", "caching"],
+	"keywords" : ["simplecached", "didactic", "memcached", "caching", "server"],
 	"engines": {
 		"node": "*"
 	},
