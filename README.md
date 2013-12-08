@@ -20,7 +20,7 @@ or add it to your dependencies in package.json:
 To start a server, just require simplecached and create a server:
 
     var simplecached = require('simplecached');
-    var server = simplecached.Server();
+    var server = new simplecached.Server();
 
 To start the server on a port different than the default (11311),
 add it to the Server constructor:
@@ -42,7 +42,20 @@ To stop the server, call close() on it:
 To create a client for a simplecached server, just create it.
 
     var simplecached = require('simplecached');
-    var client = simplecached.Client();
+    var client = new simplecached.Client();
+
+### new Client(options, callback);
+
+The client constructor accepts an options object with port and host.
+Also, an optional callback can be added to be notified when the client is connected.
+
+    var options = {
+        port: 11312,
+        host: '192.168.1.15'
+    };
+    var client = new simplecached.Client(options, function(error) {
+        console.log('Connected');
+    });
 
 The following functions can be called on the client.
 
@@ -67,6 +80,40 @@ The `result` can be true if the value was deleted, false if not found.
 ### client.close(callback);
 
 Close the connection. The optional callback will be called after the connection is actually closed.
+
+### Example
+
+The following code opens a connection to a remote simplecached server.
+Then it sets a key, retrieves it and checks that the value is correct.
+Then it closes the connection.
+
+    var simplecached = require('simplecached');
+    var options = {
+        port: 11312,
+        host: '192.168.1.15'
+    };
+    var client = new client.Client(options, function(error) {
+        console.assert(!error, 'Could not open connection');
+        var key = 'testing';
+        var value = 'real value';
+        client.set(key, value, function(error, result) {
+            console.assert(!error, 'Error setting key');
+            console.assert(result, 'Could not set key');
+            client.get(key, function(error, result) {
+                console.assert(!error, 'Error getting key');
+                console.assert(result == value, 'Invalid get key');
+                client.delete(key, function(error, result) {
+                    console.assert(!error, 'Error deleting key');
+                    console.assert(result, 'Could not delete key');
+                    client.close(function(error) {
+                        console.assert(!error, 'Error closing client');
+                    });
+                });
+            });
+        });
+    });
+
+The pyramid of callbacks can be avoided with a few named functions.
 
 ## Protocol
 
