@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/alexfernandez/simplecached.png)](http://travis-ci.org/alexfernandez/simplecached)
+
 # simplecached
 
 Simplified version of memcached, useful for didactic purposes.
